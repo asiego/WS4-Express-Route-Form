@@ -1,4 +1,23 @@
-<h1>WS4</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WS4</title>
+</head>
+<body>
+
+<form method="POST" action="/search">
+  <input name="q" placeholder="Search term" required>
+  <select name="src">
+    <option value="demo">Demo</option>
+    <option value="GitHub">GitHub</option> 
+  </select>
+  <button>Search</button>
+</form>
+
+<button onclick="runSearch('phone')">Run Test Search</button>
+<pre id="results"></pre>
 
 <script>
 const API_BASE = "https://ws4-express-route-form-1.onrender.com/";
@@ -13,4 +32,7 @@ async function runSearch(term) {
 
   console.log(data);
 }
-</script>
+  </script>
+
+</body>
+</html>
