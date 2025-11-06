@@ -21,19 +21,30 @@
 <pre id="results"></pre>
 
 <script>
-const API_BASE = "https://ws4-express-route-form-1.onrender.com/";
-
-async function runSearch(term) {
-
-  const res = await fetch(
-    API_BASE + "/api/search?q=" + encodeURIComponent(term)
-  );
-
-  const data = await res.json();
-
-  console.log(data);
-}
-
+  const API_BASE = "https://ws4-express-route-form-1.onrender.com";
+  
+  async function runSearch(term) {
+    const output = document.getElementById("results");
+    output.textContent = "Loading...";
+  
+    try {
+      const res = await fetch(
+        API_BASE + "/api/search?q=" + encodeURIComponent(term)
+      );
+  
+      if (!res.ok) {
+        output.textContent = "Error " + res.status + ": " + res.statusText;
+        return;
+      }
+  
+      const data = await res.json();
+      output.textContent = JSON.stringify(data, null, 2);
+      console.log("Search results:", data);
+    } catch (err) {
+      output.textContent = "Fetch failed: " + err.message;
+      console.error(err);
+    }
+  }
   </script>
 
 </body>

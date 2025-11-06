@@ -2,17 +2,18 @@
 const path = require('path');
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');   // 
 
 console.log("server.js käynnistyy");
 
 const app = express(); 
 const PORT = process.env.PORT || 3000;
 
+app.use(cors()); // 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -26,7 +27,6 @@ router.get("/time", (req, res) => res.json({ now: new Date().toISOString() }));
 router.get("/hello/:name", (req, res) => {
   res.send("Hello " + req.params.name);
 });
-
 
 router.get("/search", async (req, res) => {
   const q = (req.query.q || "phone").trim();
@@ -76,5 +76,5 @@ app.post("/search", (req, res) => {
   res.redirect("/#q=" + encodeURIComponent(term) + "&src=" + encodeURIComponent(src));
 });
 
-
 app.listen(PORT, () => console.log("Server is running on http://localhost:" + PORT));
+
